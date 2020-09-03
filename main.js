@@ -4,6 +4,7 @@ const { app, BrowserWindow } = require("electron");
 // To use native modules please go to:
 // https://www.npmjs.com/package/electron-rebuild
 const bcrypt = require("bcrypt");
+
 const saltRounds = 10;
 const myPlaintextPassword = "s0//P4$$w0rD";
 const someOtherPlaintextPassword = "not_bacon";
