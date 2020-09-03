@@ -1,28 +1,12 @@
 // Modules
 const { app, BrowserWindow } = require("electron");
 
-// To use native modules please go to:
-// https://www.npmjs.com/package/electron-rebuild
-const bcrypt = require("bcrypt");
-
-const saltRounds = 10;
-const myPlaintextPassword = "s0//P4$$w0rD";
-const someOtherPlaintextPassword = "not_bacon";
-
-bcrypt.genSalt(saltRounds, function (err, salt) {
-  bcrypt.hash(myPlaintextPassword, salt, function (err, hash) {
-    console.log(hash);
-  });
-});
-
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
 let mainWindow;
 
 // Create a new BrowserWindow when `app` is ready
 function createWindow() {
-  console.log("Hello");
-
   mainWindow = new BrowserWindow({
     width: 1600,
     height: 800,
@@ -42,7 +26,22 @@ function createWindow() {
 }
 
 // Electron `app` is ready
-app.on("ready", createWindow);
+app.on("ready", () => {
+  console.log(app.getPath("desktop"));
+  console.log(app.getPath("downloads"));
+  console.log(app.getPath("userData"));
+  console.log(app.getPath("appData"));
+  console.log(app.getPath("home"));
+  createWindow();
+});
+
+app.on("browser-window-blur", () => {
+  console.log("Windows is unfocused!");
+});
+
+app.on("browser-window-focus", () => {
+  console.log("Windows is focused!");
+});
 
 // Quit when all windows are closed - (Not macOS - Darwin)
 app.on("window-all-closed", () => {
