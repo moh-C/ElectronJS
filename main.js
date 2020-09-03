@@ -3,7 +3,7 @@ const { app, BrowserWindow } = require("electron");
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
-let mainWindow;
+let mainWindow, secondaryWindow;
 
 // Create a new BrowserWindow when `app` is ready
 function createWindow() {
@@ -11,36 +11,42 @@ function createWindow() {
     width: 1600,
     height: 800,
     webPreferences: { nodeIntegration: true },
+    backgroundColor: "#2b2e3b",
+  });
+
+  secondaryWindow = new BrowserWindow({
+    width: 800,
+    height: 400,
+    webPreferences: { nodeIntegration: true },
+    backgroundColor: "#2b2e3b",
   });
 
   // Load index.html into the new BrowserWindow
   mainWindow.loadFile("index.html");
+  secondaryWindow.loadFile("index.html");
+  // mainWindow.loadURL("https://google.com");
 
   // Open DevTools - Remove for PRODUCTION!
-  mainWindow.webContents.openDevTools();
+  // mainWindow.webContents.openDevTools();
+
+  // Showing the windows only after it's ready to show for seamless transition
+  mainWindow.once("ready-to-show", () => {
+    console.log("ready to show");
+    mainWindow.show();
+  });
 
   // Listen for window being closed
   mainWindow.on("closed", () => {
     mainWindow = null;
   });
+  secondaryWindow.on("closed", () => {
+    secondaryWindow = null;
+  });
 }
 
 // Electron `app` is ready
 app.on("ready", () => {
-  console.log(app.getPath("desktop"));
-  console.log(app.getPath("downloads"));
-  console.log(app.getPath("userData"));
-  console.log(app.getPath("appData"));
-  console.log(app.getPath("home"));
   createWindow();
-});
-
-app.on("browser-window-blur", () => {
-  console.log("Windows is unfocused!");
-});
-
-app.on("browser-window-focus", () => {
-  console.log("Windows is focused!");
 });
 
 // Quit when all windows are closed - (Not macOS - Darwin)
