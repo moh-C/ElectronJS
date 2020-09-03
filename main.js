@@ -1,6 +1,19 @@
 // Modules
 const { app, BrowserWindow } = require("electron");
 
+// To use native modules please go to:
+// https://www.npmjs.com/package/electron-rebuild
+const bcrypt = require("bcrypt");
+const saltRounds = 10;
+const myPlaintextPassword = "s0//P4$$w0rD";
+const someOtherPlaintextPassword = "not_bacon";
+
+bcrypt.genSalt(saltRounds, function (err, salt) {
+  bcrypt.hash(myPlaintextPassword, salt, function (err, hash) {
+    console.log(hash);
+  });
+});
+
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
 let mainWindow;
