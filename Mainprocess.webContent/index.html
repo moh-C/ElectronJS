@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="script-src 'self' 'unsafe-inline'"
+    />
+    <title>Hello World!</title>
+    <style>
+      html {
+        font-family: sans-serif;
+        background: #2b2e3b;
+        color: #9feaf9;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Hello Electron!</h1>
+    <p>Build cross-platform desktop apps with JavaScript, HTML, and CSS</p>
+
+    <video src="./mgm.mp4" controls width="650"></video>
+
+    <script>
+      // You can also require other files to run in this process
+      require("./renderer.js");
+    </script>
+    <script>
+      const { remote } = require("electron");
+      const { Menu, MenuItem } = remote;
+
+      const menu = new Menu();
+      menu.append(
+        new MenuItem({
+          label: "MenuItem1",
+          click() {
+            console.log("item 1 clicked");
+          },
+        })
+      );
+      menu.append(new MenuItem({ type: "separator" }));
+      menu.append(
+        new MenuItem({ label: "MenuItem2", type: "checkbox", checked: true })
+      );
+
+      window.addEventListener(
+        "contextmenu",
+        (e) => {
+          e.preventDefault();
+          menu.popup({ window: remote.getCurrentWindow() });
+        },
+        false
+      );
+    </script>
+  </body>
+</html>
