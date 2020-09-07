@@ -1,5 +1,5 @@
 // Modules
-const { app, BrowserWindow, Tray } = require("electron");
+const { app, BrowserWindow, Tray, Menu } = require("electron");
 const nativeImage = require("electron").nativeImage;
 
 // Keep a global reference of the window object, if you don't, the window will
@@ -8,9 +8,30 @@ let mainWindow, tray_;
 
 let mainIcon = nativeImage.createFromPath("trayTemplate@2x/icon.png");
 
+let trayMenu = Menu.buildFromTemplate([
+  {
+    label: "Click me for log",
+    click: () => console.log("Clicked and here is the log"),
+  },
+  { type: "separator" },
+  { role: "quit" },
+]);
+
 function createTray() {
   tray_ = new Tray(mainIcon);
-  tray_.on("click", () => app.quit());
+  let tooltipMessage =
+    "This is the tooltip\nHere we want to do a lot of new things\nLike your mom's name :)";
+  tray_.setToolTip(tooltipMessage);
+
+  // tray_.on("click", () => {
+  //   mainWindow.isVisible() ? mainWindow.hide() : mainWindow.show();
+  // });
+
+  // tray_.on("click", () => {
+  //   tray_.setContextMenu(trayMenu);
+  // });
+
+  tray_.setContextMenu(trayMenu);
 }
 
 // Create a new BrowserWindow when `app` is ready
