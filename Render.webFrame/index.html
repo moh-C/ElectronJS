@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="script-src 'self' 'unsafe-inline'"
+    />
+    <title>Hello World!</title>
+    <style>
+      html {
+        font-family: sans-serif;
+        background: #2b2e3b;
+        color: #9feaf9;
+      }
+    </style>
+  </head>
+  <body>
+    <p>
+      <img src="https://picsum.photos/200/300" alt="" />
+    </p>
+    <button onclick="zoomUp()">Zoom up</button>
+    <button onclick="zoomDown()">Zoom down</button>
+    <button onclick="zoomReset()">Zoom reset</button>
+
+    <script>
+      const { webFrame } = require("electron");
+
+      let zoomUp = () => {
+        webFrame.setZoomLevel(webFrame.getZoomLevel() + 1);
+      };
+
+      let zoomDown = () => {
+        webFrame.setZoomLevel(webFrame.getZoomLevel() - 1);
+      };
+
+      let zoomReset = () => {
+        webFrame.setZoomLevel(1);
+      };
+    </script>
+  </body>
+</html>
