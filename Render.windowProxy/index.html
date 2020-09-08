@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="script-src 'self' 'unsafe-inline'"
+    />
+    <title>Hello World!</title>
+    <style>
+      html {
+        font-family: sans-serif;
+        background: #2b2e3b;
+        color: #9feaf9;
+      }
+      a {
+        text-decoration: none;
+        color: white;
+      }
+    </style>
+  </head>
+  <body>
+    <a href="#" onclick="openWin()">Open window</a>
+    <br />
+    <a href="#" onclick="closeWin()">Close window</a>
+    <br />
+    <a href="#" onclick="blackBackground()">Black Background</a>
+    <br />
+    <a href="#" onclick="whiteBackground()">White Background</a>
+
+    <script>
+      let win;
+
+      let openWin = () => {
+        win = window.open(
+          "https://google.com",
+          "_blank",
+          "top=50, left=600, width=1200,height=600"
+        );
+      };
+
+      let closeWin = () => {
+        win.close();
+      };
+
+      let blackBackground = () => {
+        win.eval(
+          'document.querySelector("#viewport").style.background = "black"'
+        );
+      };
+
+      let whiteBackground = () => {
+        win.eval(
+          'document.querySelector("#viewport").style.background = "white"'
+        );
+      };
+    </script>
+  </body>
+</html>
