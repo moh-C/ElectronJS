@@ -19,6 +19,10 @@ function createWindow() {
   // Open DevTools - Remove for PRODUCTION!
   mainWindow.webContents.openDevTools();
 
+  mainWindow.webContents.on("did-finish-load", (e) => {
+    mainWindow.webContents.send("mailbox", "You have new mail!");
+  });
+
   // Listen for window being closed
   mainWindow.on("closed", () => {
     mainWindow = null;
@@ -26,6 +30,13 @@ function createWindow() {
 }
 
 let counter = 1;
+
+ipcMain.on("sync-channel", (e, args) => {
+  console.log(args);
+  setTimeout(() => {
+    e.returnValue = "Response for the sync channel";
+  }, 5000);
+});
 
 ipcMain.on("channel1", (e, args) => {
   console.log(args);
