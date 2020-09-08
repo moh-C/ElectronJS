@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="script-src 'self' 'unsafe-inline'"
+    />
+    <title>Hello World!</title>
+    <style>
+      html {
+        font-family: sans-serif;
+        background: #2b2e3b;
+        color: #9feaf9;
+      }
+    </style>
+  </head>
+  <body>
+    <button onclick="showSite()">Launch Electron.js Website</button>
+    <br />
+    <button onclick="openSplash()">Open Splash.png</button>
+    <br />
+    <button onclick="showSplash()">Show Splash.png</button>
+    <br />
+    <button onclick="deleteSplash()">Delete Splash.png</button>
+
+    <script>
+      // You can also require other files to run in this process
+      // require("./renderer.js");
+      const { shell } = require("electron");
+
+      let splashPath = `${__dirname}\\splash.png`;
+
+      let showSite = () => {
+        shell.openExternal("https://google.com");
+      };
+
+      let openSplash = () => {
+        shell.openPath(splashPath);
+      };
+
+      let showSplash = () => {
+        shell.showItemInFolder(splashPath);
+      };
+
+      let deleteSplash = () => {
+        shell.moveItemToTrash(splashPath);
+      };
+    </script>
+  </body>
+</html>
