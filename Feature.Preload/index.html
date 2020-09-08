@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="script-src 'self' 'unsafe-inline'"
+    />
+    <title>Hello World!</title>
+    <style>
+      html {
+        font-family: sans-serif;
+        background: #2b2e3b;
+        color: #9feaf9;
+      }
+    </style>
+  </head>
+  <body>
+    <h3>
+      Using Node version
+      <span id="node-version"></span>
+      and Electron version
+      <span id="electron-version"></span>
+    </h3>
+    <textarea name="" id="text-area" cols="30" rows="10"></textarea>
+    <button type="submit" id="submit">Submit</button>
+
+    <script>
+      document.getElementById("node-version").innerText = versions.node;
+      document.getElementById("electron-version").innerText = versions.electron;
+      document.getElementById("submit").addEventListener("click", (e) => {
+        fileWriter(document.getElementById("text-area").value);
+      });
+    </script>
+  </body>
+</html>
