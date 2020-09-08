@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="script-src 'self' 'unsafe-inline'"
+    />
+    <title>Hello World!</title>
+    <style>
+      html {
+        font-family: sans-serif;
+        background: #2b2e3b;
+        color: #9feaf9;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Network status is: <u id="net-status"></u></h1>
+
+    <script>
+      let setStatus = (status) => {
+        let statusText = document.getElementById("net-status");
+        statusText.innerText = navigator.onLine ? "Online" : "Offline";
+      };
+
+      setStatus(navigator.onLine);
+
+      window.addEventListener("online", (e) => setStatus(true));
+      window.addEventListener("offline", (e) => setStatus(false));
+    </script>
+  </body>
+</html>
